@@ -258,7 +258,14 @@ void TestSORT(string seqName, bool display)
 		// the resulting assignment is [track(prediction) : detection], with len=preNum
 		HungarianAlgorithm HungAlgo;
 		assignment.clear();
-		HungAlgo.Solve(iouMatrix, assignment);
+		if (detNum > 0 && trkNum > 0)
+		{
+			HungAlgo.Solve(iouMatrix, assignment);
+		}
+		else if (trkNum > 0)
+		{
+			assignment.assign(trkNum, -1);
+		}
 
 		// find matches, unmatched_detections and unmatched_predictions
 		unmatchedTrajectories.clear();
